@@ -1,0 +1,83 @@
+@use "@/styles/normalize" as *
+@use "@/styles/typography" as *
+@use "@/styles/base" as *
+@use "@/styles/helpers" as *
+
+#main
+    background: $deep-purple
+
+.nav
+    background: linear-gradient(0deg, rgba(110, 16, 94, 0) 3.12%, #320029 100%)
+    font-weight: 600
+    font-size: 1.25rem
+    line-height: 1.5rem
+    display: flex
+    flex-direction: column
+    gap: 32px
+    @extend %content-padding
+    padding-top: 10px
+
+    &__main
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+    &__breadcrumbs
+        width: 100%
+        font-weight: 300
+        font-size: 0.875rem
+        line-height: 1.0625rem
+        display: flex
+        gap: 5px
+
+    &__breadcrumb
+        &-link
+            &--current
+                color: rgba($deep-purple, 0.8)
+                padding: 0.125em 0.6875em
+                background: $white
+                border-radius: 20px
+
+        & + .nav__breadcrumb
+            &::before
+                content: "/"
+                padding-right: 5px
+
+    &__links
+        display: flex
+        gap: 30px
+
+.footer
+    background: linear-gradient(180deg, rgba(110, 16, 94, 0) 3.12%, #320029 100%)
+    font-weight: 600
+    font-size: 1.25rem
+    line-height: 1.5rem
+    display: flex
+    @extend %content-padding
+    padding-top: 12px
+    padding-bottom: 12px
+    height: 201px
+
+    &__logo
+        width: 201px
+
+    &__contacts
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 30px
+        justify-content: flex-end
+        padding-bottom: 26px
+
+    &__links
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        gap: 47px
+
+    &__media
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 30px
