@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Nav from "@modules/nav/Nav"
 import Footer from "@modules/footer/Footer"
 import Bloggers from "./bloggers/Bloggers"
+import BloggerDetails from "./bloggers/bloggerDetails/BloggerDetails"
 
 interface MainProps {}
 
@@ -14,14 +15,11 @@ const Main: React.FC<MainProps> = () => {
           <Route exact path="/">
             <Nav breadcrumbs={[{ title: "Главная", link: "/" }]} />
           </Route>
-          <Route path="/bloggers">
-            <Nav
-              breadcrumbs={[
-                { title: "Главная", link: "/" },
-                { title: "Блогеры", link: "/bloggers" },
-              ]}
-            />
+          <Route exact path="/bloggers">
             <Bloggers />
+          </Route>
+          <Route path="/bloggers/:id">
+            <BloggerDetails />
           </Route>
         </Switch>
         <Footer />
