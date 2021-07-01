@@ -66,6 +66,7 @@ const config = {
     compress: true,
     port: 4321,
     contentBase: PATHS.dist,
+    historyApiFallback: true,
   },
   optimization: optimization(),
   resolve: {

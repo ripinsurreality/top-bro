@@ -20,7 +20,6 @@ function docReady(fn: () => void) {
 
 docReady(function () {
   const main = document.querySelector("#main") as HTMLDivElement
-  console.log(main)
   render(
     <React.StrictMode>
       <Main />
