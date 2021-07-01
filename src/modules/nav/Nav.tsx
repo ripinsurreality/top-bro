@@ -1,4 +1,5 @@
 import React from "react"
+import "./nav.sass"
 
 interface NavProps {
   breadcrumbs: string[]

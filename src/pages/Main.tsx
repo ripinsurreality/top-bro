@@ -1,6 +1,6 @@
 import React from "react"
-import Nav from "@modules/Nav"
-import Footer from "@modules/Footer"
+import Nav from "@modules/nav/Nav"
+import Footer from "@modules/footer/Footer"
 
 interface MainProps {}
 
