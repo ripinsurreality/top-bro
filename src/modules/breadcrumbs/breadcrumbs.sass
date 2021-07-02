@@ -6,8 +6,18 @@
     font-size: 0.875rem
     line-height: 1.0625rem
     display: flex
-    gap: 5px
+    flex-wrap: wrap
+    column-gap: 5px
+    row-gap: 1rem
     margin: 30px 0
+
+    @media screen and ( max-width: 1024px )
+        position: absolute
+        z-index: 99
+        left: 170px
+        top: 20px
+        width: 60%
+
 
 .breadcrumb
     &-link
