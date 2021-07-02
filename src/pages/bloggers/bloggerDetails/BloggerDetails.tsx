@@ -79,7 +79,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
                     href="https://youtube.com"
                     className="details__medial-link"
                   >
-                    <YtColor />
+                    <YtColor className="details__media-svg" />
                   </a>
                   <div className="details__media-subs">
                     <h3 className="details__media-count">3 160 000+</h3>
@@ -92,7 +92,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
                     href="https://vk.com"
                     className="details__medial-link"
                   >
-                    <VkColor />
+                    <VkColor className="details__media-svg" />
                   </a>
                   <div className="details__media-subs">
                     <h3 className="details__media-count">3 160 000+</h3>
@@ -105,7 +105,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
                     href="https://instagram.com"
                     className="details__medial-link"
                   >
-                    <IgColor />
+                    <IgColor className="details__media-svg" />
                   </a>
                   <div className="details__media-subs">
                     <h3 className="details__media-count">3 160 000+</h3>
@@ -165,8 +165,8 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
           </div>
         </section>
         <section className="blogger-details__section">
+          <h1 className="blogger-details__title">Последние ролики</h1>
           <div className="last-vids">
-            <h1 className="last-vids__title">Последние ролики</h1>
             <ul className="last-vids__list">
               {vids.map((item) => {
                 return (
@@ -198,8 +198,8 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
           </div>
         </section>
         <section className="blogger-details__section">
+          <h1 className="blogger-details__title">Другие блогеры</h1>
           <div className="others">
-            <h1 className="others__title">Другие блогеры</h1>
             <ul
               className="others__list"
               ref={othersEl}

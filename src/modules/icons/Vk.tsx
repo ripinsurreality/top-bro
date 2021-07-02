@@ -1,6 +1,6 @@
 import React from "react"
 
-function Vk() {
+function Vk({ ...props }) {
   return (
     <svg
       width="24"
@@ -8,6 +8,7 @@ function Vk() {
       viewBox="0 0 24 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fill-rule="evenodd"

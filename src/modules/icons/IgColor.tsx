@@ -1,6 +1,6 @@
 import React from "react"
 
-function IgColor() {
+function IgColor({ ...props }) {
   return (
     <svg
       width="64"
@@ -8,6 +8,7 @@ function IgColor() {
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M50.087 64H13.913C6.26087 64 0 57.7391 0 50.087V13.913C0 6.26087 6.26087 0 13.913 0H50.087C57.7391 0 64 6.26087 64 13.913V50.087C64 57.7391 57.7391 64 50.087 64Z"

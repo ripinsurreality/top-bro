@@ -1,6 +1,6 @@
 import React from "react"
 
-function YtColor() {
+function YtColor({ ...props }) {
   return (
     <svg
       width="64"
@@ -8,6 +8,7 @@ function YtColor() {
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M64 55.1111C64 60.0213 60.0213 64 55.1111 64H8.88889C3.98044 64 0 60.0213 0 55.1111V8.88889C0 3.97867 3.98044 0 8.88889 0H55.1111C60.0213 0 64 3.97867 64 8.88889V55.1111Z"

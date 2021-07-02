@@ -5,14 +5,21 @@
     width: 100%
     height: auto
     @extend %content-padding
-    margin-top: 50px
+    margin-top: 3.125em
 
     display: flex
     flex-direction: column
-    gap: 80px
+    gap: 5em
+
+    @media screen and ( max-width: 1200px )
+        font-size: 0.8rem
 
     &__section
         width: 100%
+    
+    &__title
+        text-align: center
+        margin-bottom: 1em
 
 .details
     border: 1px solid $white
@@ -20,56 +27,82 @@
     background: rgba(#fff, 0.25)
     width: 100%
     height: 570px
-    display: flex
+    display: flex  
+
+    @media screen and ( max-width: 768px )
+        flex-direction: column
+        height: auto
 
     &__img
         max-width: 35%
         height: 100%
         object-fit: cover
 
+        @media screen and ( max-width: 768px )
+            max-width: 100%
+
+    &__name
+        overflow-wrap: break-word
+        @media screen and ( max-width: 1024px )
+            font-size: 2.6em
+            
+
     &__media
         display: flex
-        column-gap: 50px
-        row-gap: 30px
+        column-gap: 3.125em
+        row-gap: 1.875em
         flex-wrap: wrap
         &-item
             display: flex
-            gap: 20px
-
+            gap: 1.25em
+        &-svg
+            width: 64px
+            height: 64px
+            @media screen and ( max-width: 1200px )
+                height: 48px
+                width: 48px
     &__info
-        padding: 30px 40px
+        padding: 1.875em 2.5em
         display: flex
         flex-direction: column
-        gap: 30px
+        gap: 1.875em
 
     &__channel
         display: flex
         flex-direction: column
-        gap: 10px
+        gap: 0.625em
         overflow-y: auto
-        padding-right: 20px
-        @extend %hide-scrollbar
-        // &::-webkit-scrollbar
-        //     width: 4px
-        //     border: 2px solid rgba(#fff, 0.25)
-        // &::-webkit-scrollbar-track
-        //     background: $gray
-        //     border-radius: 5px
-        // &::-webkit-scrollbar-thumb
-        //     width: 4px
-        //     background: $white
-        //     border-radius: 5px
+        padding-right: 1.25em
+        // @extend %hide-scrollbar
+        &::-webkit-scrollbar
+            width: 4px
+        &::-webkit-scrollbar-track
+            background: $gray
+            border-radius: 5px
+        &::-webkit-scrollbar-thumb
+            width: 4px
+            background: $white
+            border-radius: 5px
+        scrollbar-width: thin
+        scrollbar-color: $white $gray
+        border-radius: 5px
+        @media screen and ( max-width: 768px )
+            max-height: 50vh
 
 .last-vids
-    &__title
-        text-align: center
-        margin-bottom: 50px
-
     &__list
-        display: flex
-        column-gap: 20px
-        row-gap: 30px
-        flex-wrap: wrap
+        display: grid
+        column-gap: 1.25em
+        row-gap: 1.875em
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr))
+        justify-items: center
+        @media screen and ( max-width: 768px )
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+            
+
+    &__thumbnail
+        object-fit: cover
+        width: 100%
 
     &__item
         position: relative
@@ -92,13 +125,10 @@
         background: rgba($deep-purple, 0.25)
 
 .others
-    &__title
-        text-align: center
-        margin-bottom: 50px
     &__list
         display: flex
-        row-gap: 50px
-        column-gap: 20px
+        row-gap: 3.125em
+        column-gap: 1.25em
         overflow-x: auto
         // @extend %hide-scrollbar
 
