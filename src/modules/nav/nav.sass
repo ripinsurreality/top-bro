@@ -8,7 +8,7 @@
     display: flex
     flex-direction: column
     @extend %content-padding
-    padding-top: 10px
+    padding-top: 0.625em
     width: 100%
 
     @media screen and ( max-width: 1024px )
@@ -20,8 +20,7 @@
         font-size: 0.85rem
 
     &__logo
-        @media screen and ( max-width: 768px )
-            width: 60px
+        width: 4.9em
 
     &__main
         display: flex
@@ -45,7 +44,7 @@
 
     &__links
         display: flex
-        gap: 30px
+        gap: 1.875em
 
         @media screen and ( max-width: 1024px )
             position: absolute
@@ -54,9 +53,10 @@
             height: 100vh
             right: -60vw
             width: 60vw
-            padding: 80px 0 20px
+            padding-top: 5em
             background: rgba(#000, 0.8)
             flex-direction: column
+            gap: 0
             transition: right 0.5s
 
             @media screen and ( max-width: 768px )
@@ -97,7 +97,7 @@
         padding: $padding
         cursor: pointer
 
-        @media screen and ( min-width: 1024px )
+        @media screen and ( min-width: 1025px )
             display: none
 
         &-line
@@ -130,7 +130,7 @@
                     transform: rotate(-45deg)
 
     &-filler
-        height: 130px
+        height: 5.125rem
         display: none
         @media screen and ( max-width: 1024px )
             display: block
@@ -147,7 +147,7 @@
         background: #000
         transition: opacity 0.2s
 
-        @media screen and ( min-width: 1024px )
+        @media screen and ( min-width: 1025px )
             display: none
 
         &--active
