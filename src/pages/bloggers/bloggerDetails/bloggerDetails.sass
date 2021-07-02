@@ -1,5 +1,4 @@
 @use "@/styles/helpers" as *
-@use "@modules/blogger/blogger" as *
 
 .blogger-details
     width: 100%
@@ -124,14 +123,6 @@
         right: 0
         background: rgba($deep-purple, 0.25)
 
-.others
-    &__list
-        display: flex
-        row-gap: 3.125em
-        column-gap: 1.25em
-        overflow-x: auto
-        // @extend %hide-scrollbar
-
 .scroller
     display: flex
     gap: 24px
@@ -144,13 +135,17 @@
         position: relative
         width: 311px
     &__track
-        width: 100%
+        position: absolute
+        left: 2px
+        right: 2px
+        border-radius: 5px
         height: 2px
         background: $gray
     &__thumb
         position: absolute
+        border-radius: 5px
         height: 4px
         background: $white
-        left: -2px
+        left: 0
         top: -1px
         width: 50%

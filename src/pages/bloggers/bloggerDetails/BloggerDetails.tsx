@@ -9,6 +9,11 @@ import VkColor from "@modules/icons/VkColor"
 import IgColor from "@modules/icons/IgColor"
 import ArrowLeft from "@modules/icons/ArrowLeft"
 import ArrowRight from "@modules/icons/ArrowRight"
+import SwiperCore, { Navigation, Scrollbar } from "swiper"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/swiper.scss"
+
+SwiperCore.use([Navigation, Scrollbar])
 
 interface BloggerDetailsProps {}
 
@@ -21,34 +26,6 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
   const vids: number[] = []
   for (let i = 1; i < 7; i++) {
     vids.push(i)
-  }
-  const othersEl = useRef<HTMLUListElement>(null)
-  const scrollThumbEl = useRef<HTMLDivElement>(null)
-  const [lmbIsHeld, setLmbIsHeld] = useState(false)
-  const setScrollThumbWidth = () => {
-    const thumb = scrollThumbEl.current as HTMLDivElement
-    const others = othersEl.current as HTMLUListElement
-    const thumbWidth =
-      ((others.offsetWidth ?? 0) / (others.scrollWidth ?? 1)) * 100
-    thumb.style.width = String(`${thumbWidth}%`)
-  }
-  useEffect(() => {
-    // window.addEventListener("resize", setScrollThumbWidth)
-    // setScrollThumbWidth()
-    // return window.removeEventListener("resize", setScrollThumbWidth)
-  }, [])
-  const onOthersScroll = () => {
-    // const thumb = scrollThumbEl.current as HTMLDivElement
-    // const others = othersEl.current as HTMLUListElement
-    // const thumbLeft =
-    //   ((others.scrollLeft ?? 0) / (others.scrollWidth ?? 1)) * 100
-    // thumb.style.left = String(`${thumbLeft}%`)
-  }
-  const dragThumb = (event: React.DragEvent<HTMLDivElement>) => {
-    // const thumb = scrollThumbEl.current as HTMLDivElement
-    // const others = othersEl.current as HTMLUListElement
-    // const thumbLeft = (parseInt(thumb.style.left, 10))
-    // console.log(thumbLeft)
   }
 
   return (
@@ -200,23 +177,39 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
         <section className="blogger-details__section">
           <h1 className="blogger-details__title">Другие блогеры</h1>
           <div className="others">
-            <ul
-              className="others__list"
-              ref={othersEl}
-              onScroll={onOthersScroll}
-            >
-              {bloggers.map((item, i) => {
-                const { name, img, media } = item
-                return (
-                  <Blogger
-                    name={name}
-                    img={img}
-                    media={media}
-                    id={String(i)}
-                    key={i}
-                  />
-                )
-              })}
+            <ul>
+              <Swiper
+                spaceBetween={20}
+                slidesPerView={"auto"}
+                freeMode={true}
+                scrollbar={{
+                  draggable: true,
+                  el: ".scroller__bar",
+                  dragClass: "scroller__thumb",
+                }}
+                navigation={{
+                  prevEl: ".scroller__arrow-left",
+                  nextEl: ".scroller__arrow-right",
+                }}
+              >
+                {bloggers.map((item, i) => {
+                  const { name, img, media } = item
+                  return (
+                    <SwiperSlide
+                      key={`slide-${i}`}
+                      style={{ width: "fit-content" }}
+                    >
+                      <Blogger
+                        name={name}
+                        img={img}
+                        media={media}
+                        id={String(i)}
+                        key={i}
+                      />
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
             </ul>
             <div className="scroller">
               <div className="scroller__arrow-left">
@@ -224,11 +217,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
               </div>
               <div className="scroller__bar">
                 <div className="scroller__track"></div>
-                <div
-                  className="scroller__thumb"
-                  ref={scrollThumbEl}
-                  onClick={dragThumb}
-                ></div>
+                <div className="scroller__thumb"></div>
               </div>
               <div className="scroller__arrow-right">
                 <ArrowRight />

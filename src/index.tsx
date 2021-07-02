@@ -22,7 +22,7 @@ docReady(function () {
   const main = document.querySelector("#main") as HTMLDivElement
   render(
     <React.StrictMode>
-      <Main />
+        <Main />
     </React.StrictMode>,
     main
   )
