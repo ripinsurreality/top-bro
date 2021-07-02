@@ -8,34 +8,37 @@
 
     &__title
         text-align: center
-        
+
     &__filters
         font-weight: 600
         font-size: 1.25rem
-        line-height: 1.5rem
         display: flex
         align-items: flex-end
-        gap: 35px
+        column-gap: 35px
+        row-gap: 0.8em
+        flex-wrap: wrap
+
+        @media screen and ( max-width: 768px )
+            font-size: 1rem
 
     &__filter
         font-weight: 500
-        font-size: 1rem
-        line-height: 1.2188rem
+        font-size: 0.75em
         display: flex
         align-items: center
         gap: 10px
 
     &__list
-        display: flex
+        display: grid
         row-gap: 50px
         column-gap: 20px
-        flex-wrap: wrap
-    
+        grid-template-columns: repeat(auto-fit, minmax(311px, 1fr))
+        justify-items: center
+
 .loading
     position: relative
     font-size: 0.9375rem
     font-weight: 300
-    line-height: 1.125rem
     width: 100%
     margin: 50px 0
     text-align: center
@@ -47,9 +50,9 @@
         top: 50%
         width: calc(50% - 7.5em)
         border: 1px solid $white
-    
+
     &::before
         left: 0
-    
+
     &::after
         right: 0
