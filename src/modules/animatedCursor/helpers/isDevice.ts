@@ -1,5 +1,5 @@
-const IsDevice = (() => {
-  if (typeof navigator == 'undefined') return
+const isDevice = (() => {
+  if (typeof navigator == "undefined") return
 
   let ua = navigator.userAgent
 
@@ -27,15 +27,16 @@ const IsDevice = (() => {
      */
     any() {
       return (
-        IsDevice.Android() ||
-        IsDevice.BlackBerry() ||
-        IsDevice.iOS() ||
-        IsDevice.OperaMini() ||
-        IsDevice.IEMobile()
+        isDevice &&
+        (isDevice.Android() ||
+          isDevice.BlackBerry() ||
+          isDevice.iOS() ||
+          isDevice.OperaMini() ||
+          isDevice.IEMobile())
       )
-    }
+    },
   }
 })()
 
 // Export
-export default IsDevice
+export default isDevice

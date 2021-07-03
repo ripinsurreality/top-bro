@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { useEventListener } from "./hooks/useEventListener"
-import IsDevice from "./helpers/IsDevice.js"
+import isDevice from "./helpers/isDevice"
 
 /**
  * Cursor Core
@@ -26,9 +26,9 @@ function CursorCore({
   outerScale = 5,
   trailingSpeed = 8,
 }) {
-  const cursorOuterRef = useRef<HTMLDivElement>()
-  const cursorInnerRef = useRef<HTMLDivElement>()
-  const requestRef = useRef()
+  const cursorOuterRef = useRef<HTMLDivElement>(null)
+  const cursorInnerRef = useRef<HTMLDivElement>(null)
+  const [requestState, setRequestState] = useState(0)
   const previousTimeRef = useRef()
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
@@ -50,23 +50,23 @@ function CursorCore({
   // Outer Cursor Animation Delay
   const animateOuterCursor = useCallback(
     (time) => {
-      if (previousTimeRef.current !== undefined) {
+      if (previousTimeRef.current && cursorOuterRef.current) {
         coords.x += (endX.current - coords.x) / trailingSpeed
         coords.y += (endY.current - coords.y) / trailingSpeed
         cursorOuterRef.current.style.top = `${coords.y}px`
         cursorOuterRef.current.style.left = `${coords.x}px`
       }
       previousTimeRef.current = time
-      requestRef.current = requestAnimationFrame(animateOuterCursor)
+      setRequestState(requestAnimationFrame(animateOuterCursor))
     },
-    [requestRef] // eslint-disable-line
+    [requestState]
   )
 
   // RAF for animateOuterCursor
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animateOuterCursor)
+    setRequestState(requestAnimationFrame(animateOuterCursor))
     return () => {
-      cancelAnimationFrame(requestRef.current)
+      cancelAnimationFrame(requestState)
     }
   }, [animateOuterCursor])
 
@@ -95,44 +95,41 @@ function CursorCore({
 
   // Cursors Hover/Active State
   useEffect(() => {
-    if (isActive) {
-      cursorOuterRef.current.style.width = `${outerSize * outerScale}px`
-      cursorOuterRef.current.style.height = `${outerSize * outerScale}px`
-    } else {
-      cursorOuterRef.current.style.width = `${outerSize}px`
-      cursorOuterRef.current.style.height = `${outerSize}px`
-    }
+    if (!cursorOuterRef.current) return
+    cursorOuterRef.current.style.width = `${
+      isActive ? outerSize * outerScale : outerSize
+    }px`
+    cursorOuterRef.current.style.height = `${
+      isActive ? outerSize * outerScale : outerSize
+    }px`
   }, [innerScale, outerScale, isActive])
 
   // Cursors Click States
   useEffect(() => {
-    if (isActiveClickable) {
-      // cursorInnerRef.current.style.transform = `translate(-50%, -50%) scale(${
-      //   innerScale * 1.2
-      // })`
-      // cursorOuterRef.current.style.transform = `translate(-50%, -50%) scale(${
-      //   outerScale * 1.4
-      // })`
-    }
+    if (!isActiveClickable) return
+    // cursorInnerRef.current.style.transform = `translate(-50%, -50%) scale(${
+    //   innerScale * 1.2
+    // })`
+    // cursorOuterRef.current.style.transform = `translate(-50%, -50%) scale(${
+    //   outerScale * 1.4
+    // })`
   }, [innerScale, outerScale, isActiveClickable])
 
   // Cursor Visibility State
   useEffect(() => {
-    if (isVisible) {
-      cursorInnerRef.current.style.opacity = 1
-      cursorOuterRef.current.style.opacity = 1
-    } else {
-      cursorInnerRef.current.style.opacity = 0
-      cursorOuterRef.current.style.opacity = 0
-    }
+    if (!cursorOuterRef.current) return
+    if (!cursorInnerRef.current) return
+    cursorInnerRef.current.style.opacity = isVisible ? "1" : "0"
+    cursorOuterRef.current.style.opacity = isVisible ? "1" : "0"
   }, [isVisible])
 
   // Target all possible clickables
   useEffect(() => {
-    const clickables = document.querySelectorAll(
-      'a, input[type="submit"], input[type="image"], label[for], select, button, .link'
-    )
+    const clickablesQuery =
+      'a, input[type="submit"], input[type="image"], label, select, button, [data-selectable="true"]'
+    const clickables = document.querySelectorAll(clickablesQuery)
     clickables.forEach((el) => {
+      if (!(el instanceof HTMLElement)) return
       el.style.cursor = "none"
 
       el.addEventListener("mouseover", () => {
@@ -154,17 +151,15 @@ function CursorCore({
       })
     })
 
-    // const onDocumentMouseMove = (e: MouseEvent) => {
-    //   if (!(e.target instanceof HTMLElement)) return
-    //   const isTarget = Array.from(clickables).some((item) => e.currentTarget === item)
-    //   console.log(isTarget)
-    //   if (isTarget) return
-    //   setIsActive(false)
-    //   setIsActiveClickable(false)
-    // }
-    // if (isActive) {
-    //   document.addEventListener("mousemove", onDocumentMouseMove)
-    // }
+    const onDocumentMouseOver = (e: MouseEvent) => {
+      if (!(e.target instanceof HTMLElement)) return
+      if (!isActive) return
+      const hasClickable = !!e.target.closest(clickablesQuery)
+      if (hasClickable) return
+      setIsActive(false)
+      setIsActiveClickable(false)
+    }
+    document.addEventListener("mouseover", onDocumentMouseOver)
 
     return () => {
       clickables.forEach((el) => {
@@ -185,13 +180,15 @@ function CursorCore({
           setIsActive(false)
           setIsActiveClickable(false)
         })
-        // document.removeEventListener("mousemove", onDocumentMouseMove)
+        document.removeEventListener("mouseover", onDocumentMouseOver)
       })
     }
   }, [isActive])
 
   // Cursor Styles
-  const styles = {
+  const styles: {
+    [element: string]: React.CSSProperties | undefined
+  } = {
     cursorInner: {
       zIndex: 999,
       display: "block",
@@ -245,7 +242,7 @@ function AnimatedCursor({
   innerScale = 1,
   trailingSpeed = 1,
 }) {
-  if (typeof navigator !== "undefined" && IsDevice.any()) {
+  if (typeof navigator !== "undefined" && isDevice?.any()) {
     return <React.Fragment></React.Fragment>
   }
   return (

@@ -1,17 +1,16 @@
 import { useRef, useEffect } from 'react'
-/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * useEventListener
  * Hook for handling EventListeners
  * @return {object} width, height
  */
-export function useEventListener(eventName, handler, element = window) {
+export function useEventListener(eventName: any, handler: (ev: any) => any, element = window) {
   // Create a ref that stores handler
-  const savedHandler = useRef()
+  let storedHandler: (ev: any) => any
 
   // Update ref.current value if handler changes.
   useEffect(() => {
-    savedHandler.current = handler
+    storedHandler = handler
   }, [handler])
 
   useEffect(
@@ -21,7 +20,7 @@ export function useEventListener(eventName, handler, element = window) {
       if (!isSupported) return
 
       // Create event listener that calls handler function stored in ref
-      const eventListener = (event) => savedHandler.current(event)
+      const eventListener = (event: any) => storedHandler(event)
 
       // Add event listener
       element.addEventListener(eventName, eventListener)
