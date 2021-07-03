@@ -12,6 +12,7 @@ import ArrowRight from "@modules/icons/ArrowRight"
 import SwiperCore, { Navigation, Scrollbar } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper.scss"
+import PlayButton from "@modules/icons/PlayButton"
 
 SwiperCore.use([Navigation, Scrollbar])
 
@@ -154,20 +155,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
                       className="last-vids__thumbnail"
                     />
                     <div className="last-vids__overlay"></div>
-                    <svg
-                      className="last-vids__playbutton"
-                      width="45"
-                      height="52"
-                      viewBox="0 0 45 52"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 1.75129L43 26L1 50.2487L1 1.75129Z"
-                        stroke="#EFF3F5"
-                        stroke-width="2"
-                      />
-                    </svg>
+                    <PlayButton className="last-vids__playbutton" />
                   </li>
                 )
               })}

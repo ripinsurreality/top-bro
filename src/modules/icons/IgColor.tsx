@@ -1,6 +1,6 @@
 import React from "react"
 
-function IgColor({ ...props }) {
+const IgColor = ({ ...props }) => {
   return (
     <svg
       width="64"

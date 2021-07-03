@@ -1,6 +1,6 @@
 import React from "react"
 
-function Yt({ ...props }) {
+const Yt = ({ ...props }) => {
   return (
     <svg
       width="24"

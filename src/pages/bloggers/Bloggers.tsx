@@ -2,7 +2,7 @@ import React from "react"
 import "./bloggers.sass"
 import Blogger from "@modules/blogger/Blogger"
 import Nav from "@modules/nav/Nav"
-import Chevron from "@modules/icons/Chevron"
+import Dropdown from "@modules/dropdown/Dropdown"
 
 interface BloggersProps {}
 
@@ -81,6 +81,25 @@ export const bloggers = [
   },
 ]
 const Bloggers: React.FC<BloggersProps> = () => {
+  const platforms = [
+    { value: "vk", label: "VKontakte" },
+    { value: "yt", label: "YouTube" },
+    { value: "ig", label: "Instagram" },
+  ]
+  const categories = [
+    { value: "example", label: "Например: Путешествия", disabled: true },
+    { value: "all", label: "Все" },
+    { value: "diy", label: "DIY" },
+    { value: "cars", label: "Авто" },
+    { value: "show", label: "Авторское Шоу" },
+    { value: "unboxing", label: "Анбоксинг" },
+    { value: "food", label: "Еда" },
+    { value: "animals", label: "Животные" },
+    { value: "games", label: "Игры" },
+    { value: "langs", label: "Иностранные языки" },
+    { value: "movies", label: "Кино" },
+    { value: "beauty", label: "Красота" },
+  ]
   return (
     <>
       <Nav
@@ -94,11 +113,10 @@ const Bloggers: React.FC<BloggersProps> = () => {
         <div className="bloggers__filters">
           Сортировать по:
           <div className="bloggers__filter">
-            выберите площадку <Chevron className="bloggers__filter-chevron" />
+            <Dropdown options={platforms} placeholder="выберите площадку" />
           </div>
           <div className="bloggers__filter">
-            выберите направление
-            <Chevron className="bloggers__filter-chevron" />
+            <Dropdown options={categories} placeholder="выберите направление" />
           </div>
         </div>
         <ul className="bloggers__list">

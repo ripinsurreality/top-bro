@@ -1,6 +1,6 @@
 import React from "react"
 
-function VkColor({ ...props }) {
+const VkColor = ({ ...props }) => {
   return (
     <svg
       width="64"

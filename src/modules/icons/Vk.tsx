@@ -1,6 +1,6 @@
 import React from "react"
 
-function Vk({ ...props }) {
+const Vk = ({ ...props }) => {
   return (
     <svg
       width="24"

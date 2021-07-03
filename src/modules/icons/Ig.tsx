@@ -1,6 +1,6 @@
 import React from "react"
 
-function Ig({ ...props }) {
+const Ig = ({ ...props }) => {
   return (
     <svg
       width="24"

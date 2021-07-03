@@ -1,6 +1,6 @@
 import React from "react"
 
-function YtColor({ ...props }) {
+const YtColor = ({ ...props }) => {
   return (
     <svg
       width="64"
