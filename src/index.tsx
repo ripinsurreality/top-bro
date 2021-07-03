@@ -1,4 +1,4 @@
-import "preact/debug"
+// import "preact/debug"
 
 import { render } from "react-dom"
 import * as React from "react"

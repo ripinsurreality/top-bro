@@ -102,6 +102,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: `index.html`,
+      favicon: `${PATHS.src}/${PATHS.assets}/img/logo.png`
     }),
     // ...PAGES.map(
     //   (page) =>

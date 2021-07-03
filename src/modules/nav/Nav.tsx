@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import "./nav.sass"
 import { Link } from "react-router-dom"
 import Breadcrumbs, { BreadcrumbsProps } from "@modules/breadcrumbs/Breadcrumbs"

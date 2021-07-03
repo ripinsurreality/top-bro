@@ -1,5 +1,5 @@
 import Nav from "@modules/nav/Nav"
-import React, { useEffect, useRef, useState } from "react"
+import React from "react"
 import { useParams } from "react-router-dom"
 import "./bloggerDetails.sass"
 import Blogger from "@modules/blogger/Blogger"
@@ -43,7 +43,7 @@ const BloggerDetails: React.FC<BloggerDetailsProps> = () => {
           <div className="details">
             <img
               src={`/assets/img/portrait${parseInt(id, 10) + 1}.png`}
-              alt=""
+              alt="portrait"
               className="details__img"
             />
             <div className="details__info">
