@@ -148,9 +148,9 @@ const config = {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "eslint-loader",
-          },
+          // {
+          //   loader: "eslint-loader",
+          // },
           {
             loader: "babel-loader",
             options: babelOptions("@babel/preset-typescript"),
@@ -161,9 +161,9 @@ const config = {
         test: /\.tsx$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "eslint-loader",
-          },
+          // {
+          //   loader: "eslint-loader",
+          // },
           {
             loader: "babel-loader",
             options: babelOptions(

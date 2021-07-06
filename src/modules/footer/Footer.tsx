@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import "./footer.sass"
 
 interface FooterProps {}
@@ -6,9 +7,9 @@ interface FooterProps {}
 const Footer: React.FC<FooterProps> = () => {
   return (
     <footer className="footer">
-      <a href="/">
+      <Link to="/">
         <img src="/assets/img/logo2.png" alt="logo" className="footer__logo" />
-      </a>
+      </Link>
       <div className="footer__contacts">
         <ul className="footer__links">
           <li className="footer__li">

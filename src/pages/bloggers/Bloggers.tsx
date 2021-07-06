@@ -1,10 +1,18 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./bloggers.sass"
 import Blogger from "@modules/blogger/Blogger"
 import Nav from "@modules/nav/Nav"
 import Dropdown from "@modules/dropdown/Dropdown"
 
 interface BloggersProps {}
+
+interface IUser {
+  login: string
+  id: number
+  avatar_url: string
+  followers: number
+  name: string
+}
 
 export const bloggers = [
   {
@@ -81,6 +89,61 @@ export const bloggers = [
   },
 ]
 const Bloggers: React.FC<BloggersProps> = () => {
+  const [loading, setLoading] = useState(false)
+  const loadedUsers = useRef<IUser[]>([])
+  const bloggersListRef = useRef<HTMLUListElement>(null)
+  const fetchGitUsers = async (since?: number) => {
+    setLoading(true)
+    console.log(loadedUsers)
+    try {
+      const res = await fetch(
+        `https://api.github.com/users?since=${since ?? 0}&per_page=8`
+      )
+      const usersList: { login: string }[] = await res.json()
+      const promisedUsers = await Promise.all(
+        usersList.map((user) =>
+          fetch(`https://api.github.com/users/${user.login}`).then((res) => {
+            if (res.ok) return res.json()
+            throw new Error(res.statusText)
+          })
+        )
+      )
+      // console.log(promisedUsers)
+      // setLoadedUsers(users => [...users, ...promisedUsers])
+      loadedUsers.current.push(...promisedUsers)
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchGitUsers()
+    const loadUsers = () => {
+      if (!bloggersListRef.current) return
+      console.clear()
+      console.log("Window innerheight:" + window.innerHeight)
+      console.log("Document scrolltop:" + document.documentElement.scrollTop)
+      console.log("Document scrollheight:" + document.scrollingElement?.scrollHeight)
+      console.log("List top:" + bloggersListRef.current.scrollTop)
+      console.log("List scroll height:" + bloggersListRef.current.scrollHeight)
+      console.log("List offset top:" + bloggersListRef.current.offsetTop)
+      if (
+        !(
+          window.innerHeight + document.documentElement.scrollTop >= bloggersListRef.current.scrollHeight /* document.documentElement.scrollTop ===
+          document.scrollingElement?.scrollHeight */
+        )
+      )
+        return
+      fetchGitUsers(loadedUsers.current.length - 1)
+    }
+
+    window.addEventListener("scroll", loadUsers)
+
+    return () => {
+      window.removeEventListener("scroll", loadUsers)
+    }
+  }, [])
   const platforms = [
     { value: "vk", label: "VKontakte" },
     { value: "yt", label: "YouTube" },
@@ -119,22 +182,27 @@ const Bloggers: React.FC<BloggersProps> = () => {
             <Dropdown options={categories} placeholder="выберите направление" />
           </div>
         </div>
-        <ul className="bloggers__list">
-          {bloggers.map((item, i) => {
-            const { name, img, media } = item
+        <ul className="bloggers__list" ref={bloggersListRef}>
+          {loadedUsers.current.map((item, i) => {
+            const { name, avatar_url, followers, login } = item
+            const media = {
+              vk: String(followers),
+              ig: String(followers),
+              yt: String(followers),
+            }
             return (
               <Blogger
                 name={name}
-                img={img}
-                media={media}
-                id={String(i)}
+                img={avatar_url}
+                id={login}
                 key={i}
+                media={media}
               />
             )
           })}
         </ul>
       </main>
-      <div className="loading">Подгружаем...</div>
+      {loading ? <div className="loading">Подгружаем...</div> : ""}
     </>
   )
 }

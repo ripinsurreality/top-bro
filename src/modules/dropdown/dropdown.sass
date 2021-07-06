@@ -41,6 +41,7 @@
         border-radius: 5px
         flex: none
         width: 100%
+        height: fit-content !important
 
         &:hover
             opacity: 0.8
@@ -63,3 +64,9 @@
 .swiper-button-disabled
     overflow: hidden
     height: 0
+
+.swiper-slide
+    height: fit-content
+
+.padding
+    @extend %content-padding

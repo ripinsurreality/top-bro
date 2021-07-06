@@ -5,6 +5,7 @@ import Footer from "@modules/footer/Footer"
 import Bloggers from "./bloggers/Bloggers"
 import BloggerDetails from "./bloggers/bloggerDetails/BloggerDetails"
 import AnimatedCursor from "@modules/animatedCursor/AnimatedCursor"
+import CustomDropdown from "@modules/dropdown/CustomDropdown"
 
 interface MainProps {}
 
@@ -16,6 +17,9 @@ const Main: React.FC<MainProps> = () => {
         <Switch>
           <Route exact path="/">
             <Nav breadcrumbs={[{ title: "Главная", link: "/" }]} />
+            <div className="padding">
+              <CustomDropdown />
+            </div>
           </Route>
           <Route exact path="/bloggers">
             <Bloggers />

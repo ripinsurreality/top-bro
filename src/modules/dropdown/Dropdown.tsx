@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./dropdown.sass"
 import SwiperCore, { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/swiper.scss"
+// import "swiper/swiper.scss"
 
 SwiperCore.use([Navigation])
 
@@ -108,7 +108,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, placeholder }) => {
             spaceBetween={2}
             direction={"vertical"}
             slidesPerView={"auto"}
-            freeMode={true}
+            // freeMode={true}
             navigation={{
               prevEl: `.${arrowUpMod}`,
               nextEl: `.${arrowDownMod}`,
@@ -120,22 +120,20 @@ const Dropdown: React.FC<DropdownProps> = ({ options, placeholder }) => {
             {options.map((option, i) => {
               const { label, value, disabled } = option
               return (
-                <SwiperSlide key={`option-${value}-${i}`}>
-                  <div
-                    className={`${optionClassName}${
-                      disabled ? " " + optionDisabledMod : ""
-                    }${
-                      currentOption?.value === value
-                        ? " " + optionSelectedMod
-                        : ""
-                    }`}
-                    data-value={value}
-                    onClick={disabled ? undefined : selectOption}
-                    key={`option-${i}`}
-                    data-selectable={disabled ? false : true}
-                  >
-                    {label}
-                  </div>
+                <SwiperSlide
+                  className={`${optionClassName}${
+                    disabled ? " " + optionDisabledMod : ""
+                  }${
+                    currentOption?.value === value
+                      ? " " + optionSelectedMod
+                      : ""
+                  }`}
+                  data-value={value}
+                  onClick={disabled ? undefined : selectOption}
+                  key={`option-${i}`}
+                  data-selectable={disabled ? false : true}
+                >
+                  {label}
                 </SwiperSlide>
               )
             })}
